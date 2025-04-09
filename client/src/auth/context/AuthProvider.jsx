@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     const action = {
       type: types.login,
       payload: {
-        email
+        email,
       },
     };
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
       JSON.stringify({
         logged: true,
         user: {
-          email
+          email,
         },
       })
     );
@@ -73,6 +73,21 @@ export const AuthProvider = ({ children }) => {
     // Envía la acción al reducer para actualizar el estado
     dispatch(action);
   };
+
+  // const [authState, setAuthState] = useState({
+  //   logged: false,
+  //   user: null,
+  //   role: null, // Añade el rol aquí
+  // });
+
+  // const saveUser = (user) => {
+  //   setAuthState({
+  //     logged: true,
+  //     user,
+  //     role: user.role, // Asume que el backend devuelve el rol
+  //   });
+  //   setErrorMessage("");
+  // };
 
   return (
     // Provee el contexto de autenticación con las funciones y el estado actual

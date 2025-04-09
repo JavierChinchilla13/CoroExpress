@@ -33,8 +33,8 @@ const PedidoSchema = new mongoose.Schema({
     enum: {
       values: ["tramite", "miami", "cr", "aduanas", "listo"],
       message: "{VALUE} is not supported",
-      default: "tramite",
     },
+    default: "tramite",
   },
 });
 

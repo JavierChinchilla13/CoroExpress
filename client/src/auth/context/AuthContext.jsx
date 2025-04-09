@@ -65,8 +65,15 @@ export const AuthProvider = ({ children }) => {
    */
   const login = async (email, password) => {
     try {
-      const response = await axios.post("/api/v1/auth/login", { email, password }); // Solicita inicio de sesión
-      saveUser(response.data.user); // Guarda los datos del usuario autenticado
+      const response = await axios.post("/api/v1/auth/login", {
+        email,
+        password,
+      });
+      setAuthState({
+        logged: true,
+        user: response.data.user,
+        role: response.data.user.role, // Asegúrate que el backend devuelva el rol
+      });
     } catch (error) {
       // Maneja errores específicos y genéricos
       if (error.response && error.response.status === 401) {

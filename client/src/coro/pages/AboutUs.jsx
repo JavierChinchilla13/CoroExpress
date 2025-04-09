@@ -3,6 +3,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import logo from "../../assets/logo.png";
 import AuthLink from "../components/shared/AuthLink";
+import ComoFunciona from "../components/shared/ComoFunciona";
+import DeseaCasillero from "../components/shared/DeseaCasillero";
+import ContactCard from "../components/shared/ContactSection";
 
 const AboutUs = () => {
   return (
@@ -21,11 +24,13 @@ const AboutUs = () => {
             </h1>
           </div>
         </div>
-      </main>
+        <DeseaCasillero></DeseaCasillero>
 
+        <ComoFunciona />
+        <ContactCard></ContactCard>
+      </main>
       {/* Footer */}
       <Footer />
-
       {/* Componente de AuthLink */}
       <AuthLink />
     </div>

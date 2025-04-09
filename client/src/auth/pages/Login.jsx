@@ -69,7 +69,7 @@ const Login = () => {
       {/* Contenedor del formulario con sombra negra */}
       <div className="w-full max-w-[600px] p-8 rounded-lg shadow-lg bg-white">
         {/* Sección del logo */}
-        <div className="flex items-center">
+        <div className="flex justify-center mt-4">
           <Link to="../../newClinic/pages/AboutUs">
             <img
               src={logo}

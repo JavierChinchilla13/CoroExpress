@@ -1,5 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import AddUser from "../pages/AddUser";
+import Casillero from "../pages/Casillero";
+import Pedidos from "../pages/Pedidos";
+// import ProtectedRoute from "../../auth/components/ProtectedRoute";
 
 const AdminRoutes = () => {
   return (
@@ -8,10 +11,10 @@ const AdminRoutes = () => {
       <Route path="addUser" element={<AddUser />} />
 
       {/* Pedidos route */}
-      <Route path="pedidos" element={<AddUser />} />
+      <Route path="pedidos" element={<Pedidos />} />
 
       {/* Casillero route */}
-      <Route path="casillero" element={<AddUser />} />
+      <Route path="casilleros" element={<Casillero />} />
     </Routes>
   );
 };

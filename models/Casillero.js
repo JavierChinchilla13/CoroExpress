@@ -20,7 +20,6 @@ const CasilleroSchema = new mongoose.Schema({
       validator: validator.isEmail,
       message: "Porfavor ingrese un email valido",
     },
-    unique: [true, "Porfavor ingrese un email"],
   },
 });
 
