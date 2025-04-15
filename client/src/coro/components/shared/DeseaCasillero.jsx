@@ -30,15 +30,30 @@ const DeseaCasillero = () => {
           showForm ? "opacity-30" : "opacity-100"
         }`}
       >
-        <h2 className="text-3xl font-bold mb-6">¿Desea un casillero?</h2>
+        <h2 className="text-3xl font-bold mb-6">
+          Comprar en línea nunca fue tan fácil:
+        </h2>
 
-        <p className="text-black font-semibold mb-6 text-lg leading-relaxed">
-          Información Información Información Información Información
-          Información Información Información Información Información
-          Información Información Información Información Información
-          Información Información Información Información Información
-          Información Información Información Información Información
-        </p>
+        <ul className="text-black font-medium text-base leading-relaxed space-y-3 text-left mx-auto max-w-md mb-10">
+          <li className="flex items-start gap-2">
+            <span className="text-[#50B8D3] font-bold">•</span>
+            Solicita nuestra dirección.
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-[#50B8D3] font-bold">•</span>
+            Ingresa los datos tal cual aparecen en la página donde deseas
+            comprar.
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-[#50B8D3] font-bold">•</span>
+            Compra con nosotros y haz la pre alerta del paquete para darle
+            seguimiento en tiempo real.
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-[#50B8D3] font-bold">•</span>
+            Recibe tus compras en la comodidad de tu hogar.
+          </li>
+        </ul>
 
         <button
           className="px-6 py-3 bg-[#50B8D3] hover:bg-[#3EA9C1] text-white font-medium rounded-lg text-lg"
@@ -53,7 +68,7 @@ const DeseaCasillero = () => {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div
             ref={formRef}
-            className="w-full max-w-lg bg-white rounded-lg shadow-lg "
+            className="w-full max-w-lg bg-white rounded-lg shadow-lg"
           >
             <div className="relative z-10">
               <Casillero />

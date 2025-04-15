@@ -1,13 +1,28 @@
-import { AuthContext } from "../../auth/context/AuthContext";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import logo from "../../assets/logo.png";
 import AuthLink from "../components/shared/AuthLink";
 import ComoFunciona from "../components/shared/ComoFunciona";
 import DeseaCasillero from "../components/shared/DeseaCasillero";
 import ContactCard from "../components/shared/ContactSection";
+import Stores from "../components/shared/Stores";
+import Herramientas from "../components/shared/Herramientas";
 
 const AboutUs = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100); // delay pequeño por si el contenido aún no está renderizado
+      }
+    }
+  }, [location]);
   return (
     <div className="bg-gray-50 flex flex-col min-h-screen pt-[150px]">
       {/* Header */}
@@ -16,18 +31,12 @@ const AboutUs = () => {
       {/* Contenido principal */}
       <main className="flex-grow container mx-auto px-6 py-12">
         {/* Logo y título */}
-        <div className="flex flex-col items-center justify-between mb-10">
-          <div className="flex flex-col items-center mb-4">
-            <img src={logo} alt="TCU" className="h-24 md:h-28 mb-4 mx-auto" />
-            <h1 className="text-4xl font-bold text-gray-800 text-center">
-              Coro Express
-            </h1>
-          </div>
-        </div>
-        <DeseaCasillero></DeseaCasillero>
 
-        <ComoFunciona />
-        <ContactCard></ContactCard>
+        <section id="herramientas-servicio">{<Herramientas />}</section>
+        <Stores />
+        <section id="solicitar-casillero">{<DeseaCasillero />}</section>
+        <section id="como-funciona"> {<ComoFunciona />}</section>
+        <section id="contacto"> {<ContactCard />}</section>
       </main>
       {/* Footer */}
       <Footer />

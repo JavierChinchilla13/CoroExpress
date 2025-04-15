@@ -31,10 +31,13 @@ const PedidoSchema = new mongoose.Schema({
   state: {
     type: String,
     enum: {
-      values: ["tramite", "miami", "cr", "aduanas", "listo"],
+      values: ["tramite", "miami", "cr", "aduanas", "listo", "entregado"],
       message: "{VALUE} is not supported",
     },
     default: "tramite",
+  },
+  peso: {
+    type: Number,
   },
 });
 

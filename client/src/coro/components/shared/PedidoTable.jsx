@@ -13,6 +13,7 @@ const AdminList = ({ refreshTrigger }) => {
     tracking: "",
     direction: "",
     state: "tramite",
+    peso: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,6 +52,7 @@ const AdminList = ({ refreshTrigger }) => {
       tracking: pedido.tracking,
       direction: pedido.direction,
       state: pedido.state,
+      peso: pedido.peso,
     });
   };
 
@@ -95,6 +97,7 @@ const AdminList = ({ refreshTrigger }) => {
             <th className="px-4 py-2 border-b text-center">Rastreo</th>
             <th className="px-4 py-2 border-b text-center">Entrega</th>
             <th className="px-4 py-2 border-b text-center">Estado</th>
+            <th className="px-4 py-2 border-b text-center">Peso KG</th>
             <th className="px-4 py-2 border-b text-center">Acciones</th>
           </tr>
         </thead>
@@ -121,9 +124,23 @@ const AdminList = ({ refreshTrigger }) => {
                     <option value="cr">En vuelo hacia CR</option>
                     <option value="aduanas">En aduanas</option>
                     <option value="listo">Listo para ser Entrgado</option>
+                    <option value="entregado">Entrgado</option>
                   </select>
                 ) : (
                   pedido.state
+                )}
+              </td>
+              <td className="px-4 py-2">
+                {editingId === pedido._id ? (
+                  <input
+                    type="number"
+                    value={form.peso}
+                    onChange={(e) => setForm({ ...form, peso: e.target.value })}
+                    className="border p-1 w-20 text-center"
+                    step="0.1"
+                  />
+                ) : (
+                  pedido.peso
                 )}
               </td>
               <td className="px-4 py-2 text-center">

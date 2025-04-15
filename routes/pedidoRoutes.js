@@ -11,6 +11,7 @@ const {
 
 router.route("/").post(createPedido).get(getAllPedidos);
 
-router.route("/:id").get(getPedido).delete(deletePedido).patch(updatePedido);
+router.route("/:id").delete(deletePedido).patch(updatePedido);
+router.route("/:tracking").get(getPedido);
 
 module.exports = router;

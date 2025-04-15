@@ -13,23 +13,10 @@ const ContactoSection = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Contacto</h2>
 
           <div className="flex justify-center gap-6">
-            {/* Correo */}
-            <div className="flex flex-col items-center space-y-2">
-              <a
-                href="mailto:newclinics.info@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-blue-100 transition"
-              >
-                <img src={MailIcon} alt="Email" className="w-12 h-12" />
-              </a>
-              <span className="text-xs font-medium text-gray-600">Correo</span>
-            </div>
-
             {/* WhatsApp */}
             <div className="flex flex-col items-center space-y-2">
               <a
-                href="https://wa.me/50661226703"
+                href="https://wa.me/50660372940"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-md hover:bg-green-100 transition"
@@ -44,7 +31,7 @@ const ContactoSection = () => {
             {/* Instagram */}
             <div className="flex flex-col items-center space-y-2">
               <a
-                href="https://www.instagram.com/newclinic.cr/"
+                href="https://www.instagram.com/coro.express/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-12 h-12 rounded-full shadow-md hover:opacity-80 transition bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"

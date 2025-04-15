@@ -9,6 +9,8 @@ const app = express();
 const helmet = require("helmet");
 const xss = require("xss-clean");
 
+const cors = require("cors");
+
 // Paquetes adicionales
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
@@ -33,6 +35,7 @@ app.use(express.json()); // Parsear JSON
 app.use(cookieParser(process.env.JWT_SECRET)); // Cookies firmadas
 app.use(fileUpload({ useTempFiles: true })); // Subida de archivos
 app.use(morgan("tiny")); // Logger de solicitudes HTTP
+app.use(cors());
 
 // Configuración de Helmet
 app.use(

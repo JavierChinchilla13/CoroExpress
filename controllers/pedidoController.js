@@ -57,15 +57,17 @@ const updatePedido = async (req, res) => {
 
 const getPedido = async (req, res) => {
   const {
-    params: { id: pedidoId },
+    params: { tracking },
   } = req;
 
-  const pedido = await Pedido.findOne({
-    _id: pedidoId,
-  });
+  const pedido = await Pedido.findOne({ tracking });
+
   if (!pedido) {
-    throw new NotFoundError(`No pedido with id ${pedidoId}`);
+    throw new NotFoundError(
+      `No se encontró un pedido con tracking: ${tracking}`
+    );
   }
+
   res.status(StatusCodes.OK).json({ pedido });
 };
 
