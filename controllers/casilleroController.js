@@ -1,20 +1,49 @@
 const Casillero = require("../models/Casillero");
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, NotFoundError } = require("../errors");
+const { NotFoundError } = require("../errors");
+const sendPersonalizedPDF = require("../utils/sendPersonalizedPDF");
 
 const createCasillero = async (req, res) => {
-  const casillero = await Casillero.create(req.body);
-  res.status(StatusCodes.CREATED).json({ casillero });
+  const { fullName, number, email } = req.body;
+
+  if (!fullName || !number || !email) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ message: "Todos los campos son obligatorios" });
+  }
+
+  // Revisar si el correo ya existe
+  let casillero = await Casillero.findOne({ email });
+
+  if (casillero) {
+    // Ya existe: reenviar PDF
+    const downloadUrl = await sendPersonalizedPDF({
+      name: casillero.fullName,
+      email,
+    });
+
+    return res.status(StatusCodes.OK).json({
+      message: "El correo ya estaba registrado. Se reenvió el PDF.",
+      downloadUrl: `http://localhost:5000${downloadUrl}`,
+    });
+  }
+
+  // Si no existe: crear nuevo casillero y enviar PDF
+  casillero = await Casillero.create({ fullName, number, email });
+
+  const downloadUrl = await sendPersonalizedPDF({ name: fullName, email });
+
+  res.status(StatusCodes.CREATED).json({
+    message: "Casillero creado exitosamente",
+    casillero,
+    downloadUrl: `http://localhost:5000${downloadUrl}`,
+  });
 };
 
 const deleteCasillero = async (req, res) => {
-  const {
-    params: { id: casilleroId },
-  } = req;
+  const { id: casilleroId } = req.params;
 
-  const casillero = await Casillero.findByIdAndRemove({
-    _id: casilleroId,
-  });
+  const casillero = await Casillero.findByIdAndRemove({ _id: casilleroId });
   if (!casillero) {
     throw new NotFoundError(`No casillero with id ${casilleroId}`);
   }
@@ -27,13 +56,9 @@ const getAllCasilleros = async (req, res) => {
 };
 
 const getCasillero = async (req, res) => {
-  const {
-    params: { id: casilleroId },
-  } = req;
+  const { id: casilleroId } = req.params;
 
-  const casillero = await Casillero.findOne({
-    _id: casilleroId,
-  });
+  const casillero = await Casillero.findOne({ _id: casilleroId });
   if (!casillero) {
     throw new NotFoundError(`No casillero with id ${casilleroId}`);
   }

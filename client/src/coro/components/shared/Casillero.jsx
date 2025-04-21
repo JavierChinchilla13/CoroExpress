@@ -11,6 +11,8 @@ const Casillero = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const containerStyles = "flex flex-col items-center";
   const textBoxStyles = "w-4/6 mt-4";
@@ -25,16 +27,18 @@ const Casillero = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { fullName, number, email } = formState;
+
     if (!fullName || !number || !email) {
       toast.error("Todos los campos son obligatorios");
       setErrorMessage("Por favor, completa todos los campos.");
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      const response = await fetch("/api/v1/casillero", {
+      const response = await fetch("http://localhost:5000/api/v1/casillero", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,22 +46,35 @@ const Casillero = () => {
         body: JSON.stringify(formState),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        toast.success(
-          "Se ha enviado la información del casillero al correo electrónico."
-        );
+        if (data.downloadUrl) {
+          window.open(data.downloadUrl, "_blank");
+        }
+
+        const successText = `¡Hola ${fullName}! Casillero abierto exitosamente. Revisa tu correo para el PDF.`;
+
+        toast.success(<div className="text-center">{successText}</div>, {
+          position: "top-center",
+        });
+
+        setSuccessMessage(successText);
+
         setFormState({ fullName: "", number: "", email: "" });
         setErrorMessage("");
       } else {
-        const errorData = await response.json();
-        const serverMessage = errorData.message || "Error al abrir casillero.";
-        setErrorMessage(serverMessage);
-        toast.error(serverMessage);
+        toast.error(data.message || "Error al procesar la solicitud");
+        setErrorMessage(data.message);
+        setSuccessMessage("");
       }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessage("Hubo un problema, intenta nuevamente.");
-      toast.error("Error en el servidor");
+      toast.error("Error de conexión con el servidor");
+      setErrorMessage("No se pudo conectar con el servidor");
+      setSuccessMessage("");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,9 +114,19 @@ const Casillero = () => {
           <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
         )}
 
-        <Button type="submit" extraStyle={buttonStyles}>
-          Abrir casillero
+        {successMessage && (
+          <p className="text-green-600 text-sm mt-4">{successMessage}</p>
+        )}
+
+        <Button type="submit" extraStyle={buttonStyles} disabled={isLoading}>
+          {isLoading ? "Procesando..." : "Abrir casillero"}
         </Button>
+
+        {isLoading && (
+          <p className="text-sm text-gray-500 animate-pulse">
+            Cargando PDF y enviando información...
+          </p>
+        )}
 
         <p>
           <span className="text-blue-400 hover:text-blue-600 ml-2 cursor-pointer">
