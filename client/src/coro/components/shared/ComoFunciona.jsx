@@ -8,8 +8,8 @@ const ComoFunciona = () => {
         <div className="w-full max-w-xl rounded-xl overflow-hidden shadow-md aspect-video">
           <iframe
             className="w-full h-full"
-            src="https://www.youtube.com/embed/k0GcIZMVjWo"
-            title="Video de Feid"
+            src="https://www.youtube.com/embed/"
+            title="Como pedir con Coro Express"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

@@ -8,6 +8,7 @@ import DeseaCasillero from "../components/shared/DeseaCasillero";
 import ContactCard from "../components/shared/ContactSection";
 import Stores from "../components/shared/Stores";
 import Herramientas from "../components/shared/Herramientas";
+import InicioP from "../components/shared/InicioP";
 
 const AboutUs = () => {
   const location = useLocation();
@@ -24,14 +25,14 @@ const AboutUs = () => {
     }
   }, [location]);
   return (
-    <div className="bg-gray-50 flex flex-col min-h-screen pt-[150px]">
+    <div className=" flex flex-col min-h-screen pt-[150px]">
       {/* Header */}
       <Header />
 
       {/* Contenido principal */}
       <main className="flex-grow container mx-auto px-6 py-12">
         {/* Logo y título */}
-
+        <InicioP />
         <section id="herramientas-servicio">{<Herramientas />}</section>
         <Stores />
         <section id="solicitar-casillero">{<DeseaCasillero />}</section>
