@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+
 import { toast } from "react-toastify";
 
 const Casillero = () => {
@@ -40,9 +41,7 @@ const Casillero = () => {
     try {
       const response = await fetch("http://localhost:5000/api/v1/casillero", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),
       });
 
@@ -54,13 +53,10 @@ const Casillero = () => {
         }
 
         const successText = `¡Hola ${fullName}! Casillero abierto exitosamente. Revisa tu correo para el PDF.`;
-
         toast.success(<div className="text-center">{successText}</div>, {
           position: "top-center",
         });
-
         setSuccessMessage(successText);
-
         setFormState({ fullName: "", number: "", email: "" });
         setErrorMessage("");
       } else {
@@ -128,11 +124,17 @@ const Casillero = () => {
           </p>
         )}
 
-        <p>
-          <span className="text-blue-400 hover:text-blue-600 ml-2 cursor-pointer">
-            Necesito dirección residencial
-          </span>
-        </p>
+        {/* Enlace a WhatsApp para solicitar dirección residencial */}
+        <div className="flex justify-center mt-6">
+          <a
+            href="https://wa.me/50660372940?text=Buenas%20necesito%20una%20dirección%20residencial%20para%20mi%20paquete."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 text-blue-500 hover:text-blue-700"
+          >
+            <span className="font-medium">Necesito dirección residencial</span>
+          </a>
+        </div>
       </form>
     </div>
   );

@@ -23,4 +23,4 @@ const CasilleroSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("PCasillero", CasilleroSchema);
+module.exports = mongoose.model("Casillero", CasilleroSchema);

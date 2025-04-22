@@ -12,8 +12,8 @@ const createCasillero = async (req, res) => {
       .json({ message: "Todos los campos son obligatorios" });
   }
 
-  // Revisar si el correo ya existe
-  let casillero = await Casillero.findOne({ email });
+  // Buscar un casillero que tenga los tres campos coincidentes
+  let casillero = await Casillero.findOne({ fullName, number, email });
 
   if (casillero) {
     // Ya existe: reenviar PDF
@@ -23,7 +23,7 @@ const createCasillero = async (req, res) => {
     });
 
     return res.status(StatusCodes.OK).json({
-      message: "El correo ya estaba registrado. Se reenvió el PDF.",
+      message: "Ya existía un casillero con estos datos. Se reenvió el PDF.",
       downloadUrl: `http://localhost:5000${downloadUrl}`,
     });
   }
