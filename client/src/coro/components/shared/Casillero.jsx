@@ -39,11 +39,14 @@ const Casillero = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/v1/casillero", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formState),
-      });
+      const response = await fetch(
+        "https://coroexpress.onrender.com/api/v1/casillero",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formState),
+        }
+      );
 
       const data = await response.json();
 
