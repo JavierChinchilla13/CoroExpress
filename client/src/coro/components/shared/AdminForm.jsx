@@ -3,7 +3,7 @@ import axios from "axios";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import useLocalState from "../../utils/localState";
-import { AuthContext } from "../../../auth/context/AuthContext"; // ajusta ruta
+import { AuthContext } from "../../../auth/context/AuthContext";
 
 const AdminForm = ({ setRefreshTable }) => {
   const { authState } = useContext(AuthContext);
@@ -17,16 +17,14 @@ const AdminForm = ({ setRefreshTable }) => {
   const { alert, showAlert, loading, setLoading, setSuccess, hideAlert } =
     useLocalState();
 
-  const onInputChange = (e) => {
+  const onInputChange = (e) =>
     setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
 
   const onRegisterUser = async (e) => {
     e.preventDefault();
     if (!isAdmin) return;
     hideAlert();
     setLoading(true);
-
     try {
       const { data } = await axios.post("/api/v1/auth/register", formState);
       showAlert({ text: data.msg, type: "success" });
@@ -42,9 +40,10 @@ const AdminForm = ({ setRefreshTable }) => {
   };
 
   return (
-    <div className="w-fit h-fit lg:w-5/12 bg-white rounded-xl shadow-lg p-6 mt-12 relative">
+    <div className="w-fit lg:w-5/12 rounded-xl  p-6 mt-12 relative">
+      {/* Overlay sólo en la cabecera */}
       {!isAdmin && (
-        <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-xl">
+        <div className="absolute top-0 left-0 right-0 h-12 bg-white bg-opacity-75 flex items-center justify-center rounded-t-xl">
           <span className="text-gray-500">Sólo administradores</span>
         </div>
       )}

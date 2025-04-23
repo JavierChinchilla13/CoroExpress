@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
-import { AuthContext } from "../../../auth/context/AuthContext"; // ajusta ruta
+import { AuthContext } from "../../../auth/context/AuthContext";
 
 const AdminTable = ({ refreshTrigger }) => {
   const { authState } = useContext(AuthContext);
@@ -17,9 +17,9 @@ const AdminTable = ({ refreshTrigger }) => {
       setIsLoading(true);
       try {
         const res = await axios.get("/api/v1/users");
-        setUsers(res.data?.users || []);
-      } catch (error) {
-        console.error("Error al cargar usuarios:", error);
+        setUsers(res.data.users || []);
+      } catch (err) {
+        console.error(err);
         setUsers([]);
       } finally {
         setIsLoading(false);
@@ -38,74 +38,78 @@ const AdminTable = ({ refreshTrigger }) => {
     if (!isAdmin) return;
     try {
       await axios.patch(`/api/v1/users/${id}`, form);
-      setUsers(users.map((u) => (u._id === id ? { ...u, ...form } : u)));
+      setUsers((u) => u.map((x) => (x._id === id ? { ...x, ...form } : x)));
       setEditing(null);
-    } catch (error) {
-      console.error("Error al actualizar usuario:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   const handleDelete = async (id) => {
     if (!isAdmin) return;
-    if (confirm("¿Estás seguro que deseas eliminar este usuario?")) {
-      try {
-        await axios.delete(`/api/v1/users/${id}`);
-        setUsers(users.filter((u) => u._id !== id));
-      } catch (error) {
-        console.error("Error al eliminar usuario:", error);
-      }
+    if (!confirm("¿Eliminar este usuario?")) return;
+    try {
+      await axios.delete(`/api/v1/users/${id}`);
+      setUsers((u) => u.filter((x) => x._id !== id));
+    } catch (err) {
+      console.error(err);
     }
   };
 
   if (isLoading) return <div>Cargando usuarios...</div>;
 
   return (
-    <div className="w-fit h-fit lg:w-6/12 bg-white rounded-xl shadow-lg p-6 mt-12">
-      <h1 className="text-xl font-bold text-gray-700 mb-4">
-        Lista de usuarios
-      </h1>
-      <table className="w-full table-auto border-collapse">
+    <div className="overflow-x-auto p-6 mt-12 ">
+      <h1 className="text-xl font-bold text-gray-700 mb-4">Usuarios</h1>
+      <table className="min-w-full bg-white border border-gray-200 rounded-lg">
         <thead className="bg-gray-100">
           <tr>
-            <th className="text-left p-2">Nombre</th>
-            <th className="text-left p-2">Email</th>
-            <th className="text-left p-2">Rol</th>
-            <th className="text-center p-2">Acciones</th>
+            <th className="p-2 text-left">Nombre</th>
+            <th className="p-2 text-left">Email</th>
+            <th className="p-2 text-left">Rol</th>
+            <th className="p-2 text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user._id} className="border-t">
               <td className="p-2">
-                {editing === user._id && isAdmin ? (
+                {editing === user._id ? (
                   <input
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="border p-1 w-full"
+                    value={form.name}
+                    disabled={!isAdmin}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, name: e.target.value }))
+                    }
                   />
                 ) : (
                   user.name
                 )}
               </td>
               <td className="p-2">
-                {editing === user._id && isAdmin ? (
+                {editing === user._id ? (
                   <input
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
                     className="border p-1 w-full"
+                    value={form.email}
+                    disabled={!isAdmin}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, email: e.target.value }))
+                    }
                   />
                 ) : (
                   user.email
                 )}
               </td>
               <td className="p-2">
-                {editing === user._id && isAdmin ? (
+                {editing === user._id ? (
                   <select
-                    value={form.role}
-                    onChange={(e) => setForm({ ...form, role: e.target.value })}
                     className="border p-1 w-full"
+                    value={form.role}
+                    disabled={!isAdmin}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, role: e.target.value }))
+                    }
                   >
                     <option value="manager">Manager</option>
                     <option value="admin">Administrador</option>
@@ -117,45 +121,52 @@ const AdminTable = ({ refreshTrigger }) => {
                 )}
               </td>
               <td className="p-2 text-center">
-                <div className="flex justify-center gap-2">
-                  {editing === user._id ? (
-                    isAdmin && (
-                      <>
-                        <button
-                          onClick={() => handleSave(user._id)}
-                          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
-                        >
-                          <FaSave />
-                        </button>
-                        <button
-                          onClick={() => setEditing(null)}
-                          className="bg-gray-300 text-black p-2 rounded hover:bg-gray-400 transition"
-                        >
-                          <FaTimes />
-                        </button>
-                      </>
-                    )
-                  ) : (
-                    <>
-                      {isAdmin && (
-                        <button
-                          onClick={() => handleEdit(user)}
-                          className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition"
-                        >
-                          <FaEdit />
-                        </button>
-                      )}
-                      {isAdmin && (
-                        <button
-                          onClick={() => handleDelete(user._id)}
-                          className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition"
-                        >
-                          <FaTrash />
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
+                {editing === user._id ? (
+                  <>
+                    <button
+                      onClick={() => handleSave(user._id)}
+                      disabled={!isAdmin}
+                      className={`p-2 rounded ${
+                        isAdmin
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      <FaSave />
+                    </button>
+                    <button
+                      onClick={() => setEditing(null)}
+                      className="p-2 rounded bg-gray-300 text-black"
+                    >
+                      <FaTimes />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => handleEdit(user)}
+                      disabled={!isAdmin}
+                      className={`p-2 rounded ${
+                        isAdmin
+                          ? "bg-yellow-500 text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      disabled={!isAdmin}
+                      className={`p-2 rounded ${
+                        isAdmin
+                          ? "bg-red-600 text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      <FaTrash />
+                    </button>
+                  </>
+                )}
               </td>
             </tr>
           ))}

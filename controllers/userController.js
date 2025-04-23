@@ -32,24 +32,46 @@ const showCurrentUser = async (req, res) => {
 };
 
 // Actualizar usuario (con user.save())
+// const updateUser = async (req, res) => {
+//   const { email, name } = req.body;
+//   if (!email || !name) {
+//     throw new CustomError.BadRequestError(
+//       "Por favor, proporciona todos los valores."
+//     );
+//   }
+//   const user = await User.findOne({ _id: req.user.userId });
+
+//   // Actualizar los campos
+//   user.email = email;
+//   user.name = name;
+
+//   await user.save(); // Guardar cambios en la base de datos
+
+//   const tokenUser = createTokenUser(user); // Crear un nuevo token
+//   attachCookiesToResponse({ res, user: tokenUser }); // Adjuntar cookies
+//   res.status(StatusCodes.OK).json({ user: tokenUser });
+// };
+
 const updateUser = async (req, res) => {
-  const { email, name } = req.body;
-  if (!email || !name) {
-    throw new CustomError.BadRequestError(
-      "Por favor, proporciona todos los valores."
-    );
+  const {
+    body: { email, name, role },
+    params: { id: userId },
+  } = req;
+
+  console.log("backend");
+  console.log(req.body);
+
+  if (email === "" || name === "" || role === "") {
+    throw new BadRequestError("Name field cannot be empty");
   }
-  const user = await User.findOne({ _id: req.user.userId });
-
-  // Actualizar los campos
-  user.email = email;
-  user.name = name;
-
-  await user.save(); // Guardar cambios en la base de datos
-
-  const tokenUser = createTokenUser(user); // Crear un nuevo token
-  attachCookiesToResponse({ res, user: tokenUser }); // Adjuntar cookies
-  res.status(StatusCodes.OK).json({ user: tokenUser });
+  const user = await User.findByIdAndUpdate({ _id: userId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!user) {
+    throw new NotFoundError(`No user with id ${userId}`);
+  }
+  res.status(StatusCodes.OK).json({ user });
 };
 
 // Actualizar la contraseña del usuario

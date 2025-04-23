@@ -18,13 +18,14 @@ router.route("/").get(authenticateUser, getAllUsers);
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router
   .route("/updateUser")
-  .patch(authenticateUser, authorizePermissions("admin"), updateUser);
+  .patch(authenticateUser, authorizePermissions("admin"));
 
 router.route("/updateUserPassword").patch(authenticateUser, updateUserPassword);
 
 router
   .route("/:id")
   .get(authenticateUser, getSingleUser)
-  .delete(authenticateUser, authorizePermissions("admin"), deleteUser);
+  .delete(authenticateUser, authorizePermissions("admin"), deleteUser)
+  .patch(updateUser);
 
 module.exports = router;

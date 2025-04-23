@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
 import { AuthContext } from "../../../auth/context/AuthContext"; // Ajusta la ruta según tu estructura
 
-const AdminList = ({ refreshTrigger }) => {
-  // Obtener el estado de autenticación y rol del usuario
+const CasilleroTable = ({ refreshTrigger }) => {
   const { authState } = useContext(AuthContext);
   const isAdmin = authState.user?.role === "admin";
 
@@ -27,7 +26,7 @@ const AdminList = ({ refreshTrigger }) => {
   };
 
   const handleDelete = async (id) => {
-    if (!isAdmin) return; // Solo admin puede eliminar
+    if (!isAdmin) return;
     if (confirm("¿Estás seguro que deseas eliminar este casillero?")) {
       try {
         await axios.delete(`/api/v1/casillero/${id}`);
@@ -45,9 +44,7 @@ const AdminList = ({ refreshTrigger }) => {
 
   if (loading)
     return <div className="text-center text-gray-500">Cargando...</div>;
-
   if (error) return <div className="text-center text-red-500">{error}</div>;
-
   if (casilleros.length === 0)
     return (
       <div className="text-center text-gray-500">
@@ -64,7 +61,9 @@ const AdminList = ({ refreshTrigger }) => {
             <th className="px-4 py-2 border-b">Nombre Completo</th>
             <th className="px-4 py-2 border-b">Teléfono</th>
             <th className="px-4 py-2 border-b">Correo Electrónico</th>
-            <th className="px-4 py-2 border-b text-center">Acciones</th>
+            {isAdmin && (
+              <th className="px-4 py-2 border-b text-center">Acciones</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -74,18 +73,16 @@ const AdminList = ({ refreshTrigger }) => {
               <td className="px-4 py-2">{user.fullName}</td>
               <td className="px-4 py-2">{user.number}</td>
               <td className="px-4 py-2">{user.email}</td>
-              <td className="px-4 py-2 text-center">
-                {isAdmin ? (
+              {isAdmin && (
+                <td className="px-4 py-2 text-center">
                   <button
                     onClick={() => handleDelete(user._id)}
                     className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition"
                   >
                     <FaTrash />
                   </button>
-                ) : (
-                  <span className="text-gray-400">No autorizado</span>
-                )}
-              </td>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -94,8 +91,8 @@ const AdminList = ({ refreshTrigger }) => {
   );
 };
 
-AdminList.propTypes = {
+CasilleroTable.propTypes = {
   refreshTrigger: PropTypes.bool.isRequired,
 };
 
-export default AdminList;
+export default CasilleroTable;
