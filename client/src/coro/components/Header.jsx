@@ -5,6 +5,7 @@ import { AuthContext } from "../../auth/context/AuthContext";
 
 const Header = () => {
   const { authState } = useContext(AuthContext);
+  console.log("AUTH STATE in Header/AdminList:", authState);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 

@@ -1,40 +1,24 @@
 import { types } from "../types/authTypes";
 
-/*
-initialStateType = {
+export const authReducer = (state, action) => {
+  switch (action.type) {
+    case types.login:
+      return {
+        ...state, // por si más adelante tienes otros flags
+        logged: true,
+        user: action.payload, // payload es todo el objeto user { email, role, … }
+        role: action.payload.role,
+      };
 
-    logged : boolean,
-    user: {
-        id: string,
-        name: string,
-        }
-}
+    case types.logout:
+      return {
+        ...state,
+        logged: false,
+        user: null,
+        role: null,
+      };
 
-actionType = {
-
-    type: string,
-    payload: user
-    
-}
- 
-*/
-
-export const authReducer = (initialState = {}, action) => {
-
-    switch (action.type) {
-        case types.login:
-            return {
-                logged: true,
-                user: action.payload
-            };
-
-        case types.logout:
-            return {
-                logged: false
-            };
-    
-        default:
-            return initialState;
-    }
-
-}
+    default:
+      return state;
+  }
+};

@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { FaTrash } from "react-icons/fa";
+import { AuthContext } from "../../../auth/context/AuthContext"; // Ajusta la ruta según tu estructura
 
 const AdminList = ({ refreshTrigger }) => {
+  // Obtener el estado de autenticación y rol del usuario
+  const { authState } = useContext(AuthContext);
+  const isAdmin = authState.user?.role === "admin";
+
   const [casilleros, setCasilleros] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,6 +27,7 @@ const AdminList = ({ refreshTrigger }) => {
   };
 
   const handleDelete = async (id) => {
+    if (!isAdmin) return; // Solo admin puede eliminar
     if (confirm("¿Estás seguro que deseas eliminar este casillero?")) {
       try {
         await axios.delete(`/api/v1/casillero/${id}`);
@@ -69,12 +75,16 @@ const AdminList = ({ refreshTrigger }) => {
               <td className="px-4 py-2">{user.number}</td>
               <td className="px-4 py-2">{user.email}</td>
               <td className="px-4 py-2 text-center">
-                <button
-                  onClick={() => handleDelete(user._id)}
-                  className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition"
-                >
-                  <FaTrash />
-                </button>
+                {isAdmin ? (
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition"
+                  >
+                    <FaTrash />
+                  </button>
+                ) : (
+                  <span className="text-gray-400">No autorizado</span>
+                )}
               </td>
             </tr>
           ))}

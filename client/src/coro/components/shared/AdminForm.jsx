@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import useLocalState from "../../utils/localState";
+import { AuthContext } from "../../../auth/context/AuthContext"; // ajusta ruta
 
 const AdminForm = ({ setRefreshTable }) => {
+  const { authState } = useContext(AuthContext);
+  const isAdmin = authState.role === "admin";
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -19,6 +23,7 @@ const AdminForm = ({ setRefreshTable }) => {
 
   const onRegisterUser = async (e) => {
     e.preventDefault();
+    if (!isAdmin) return;
     hideAlert();
     setLoading(true);
 
@@ -37,7 +42,13 @@ const AdminForm = ({ setRefreshTable }) => {
   };
 
   return (
-    <div className="w-fit h-fit lg:w-5/12 bg-white rounded-xl shadow-lg p-6 mt-12">
+    <div className="w-fit h-fit lg:w-5/12 bg-white rounded-xl shadow-lg p-6 mt-12 relative">
+      {!isAdmin && (
+        <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-xl">
+          <span className="text-gray-500">Sólo administradores</span>
+        </div>
+      )}
+
       <h1 className="text-xl font-bold text-gray-700 mb-4">
         Agregar administrador
       </h1>
@@ -61,6 +72,7 @@ const AdminForm = ({ setRefreshTable }) => {
           extraStyle="w-full"
           nameRef="name"
           handleText={onInputChange}
+          disabled={!isAdmin}
         />
         <Input
           text={formState.email}
@@ -68,6 +80,7 @@ const AdminForm = ({ setRefreshTable }) => {
           extraStyle="w-full"
           nameRef="email"
           handleText={onInputChange}
+          disabled={!isAdmin}
         />
         <Input
           text={formState.password}
@@ -75,11 +88,16 @@ const AdminForm = ({ setRefreshTable }) => {
           extraStyle="w-full"
           nameRef="password"
           handleText={onInputChange}
+          disabled={!isAdmin}
         />
         <Button
           type="submit"
-          extraStyle="w-full bg-blue-500 text-white py-2 rounded"
-          disabled={loading}
+          extraStyle={`w-full py-2 rounded ${
+            isAdmin
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
+          disabled={!isAdmin || loading}
         >
           {loading ? "Cargando..." : "Registrar"}
         </Button>

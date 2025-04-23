@@ -43,6 +43,7 @@ const Login = () => {
 
       if (response.ok) {
         login(email);
+        window.location.reload();
         navigate("/");
         setEmail("");
         setPassword("");
