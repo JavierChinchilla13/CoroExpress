@@ -35,11 +35,6 @@ const stores = [
     link: "https://shop.mango.com",
   },
   {
-    name: "Shark",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Fshark.webp&w=1536&q=80",
-    link: "https://www.sharkclean.com",
-  },
-  {
     name: "Baseus",
     logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Fbaseus.webp&w=1536&q=80",
     link: "https://www.baseus.com",
@@ -50,84 +45,75 @@ const stores = [
     link: "https://www.temu.com",
   },
   {
-    name: "Eufy",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Feufy.webp&w=1536&q=80",
-    link: "https://www.eufylife.com",
-  },
-  {
-    name: "Sonos",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Fsonos.webp&w=1536&q=80",
-    link: "https://www.sonos.com",
-  },
-  {
-    name: "Anker",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2FAnker.webp&w=1536&q=80",
-    link: "https://www.anker.com",
-  },
-  {
-    name: "TP-Link",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2FTPLINK.webp&w=1536&q=80",
-    link: "https://www.tp-link.com",
-  },
-  {
-    name: "Jabra",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2FJabra.webp&w=1536&q=80",
-    link: "https://www.jabra.com",
-  },
-  {
-    name: "Targus",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Ftargus.webp&w=1536&q=80",
-    link: "https://www.targus.com",
-  },
-  {
-    name: "Hurley",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2FHurley.webp&w=1536&q=80",
-    link: "https://www.hurley.com",
-  },
-  {
     name: "ADOR",
     logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Fador.webp&w=1536&q=80",
     link: "https://ador.world/",
   },
   {
-    name: "KicksCrew",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2FKICKSCREW.webp&w=1536&q=80",
-    link: "https://www.kickscrew.com",
+    name: "Shein USA",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Shein_Logo_2017.svg/250px-Shein_Logo_2017.svg.png",
+    link: "https://us.shein.com",
   },
   {
-    name: "LETbricks",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2Fletbricks.webp&w=1536&q=80",
-    link: "https://www.letbricks.com",
+    name: "Columbia USA",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Columbia_Sportswear_Co_logo.svg/250px-Columbia_Sportswear_Co_logo.svg.png",
+    link: "https://www.columbia.com",
   },
   {
-    name: "13 Deals",
-    logo: "https://aeropost.com/_vercel/image?url=%2Fimages%2FnewHomepage%2Fstores%2Fbrands%2F13deals.webp&w=1536&q=80",
-    link: "https://www.13deals.com",
+    name: "Sephora",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Sephora_logo.svg/250px-Sephora_logo.svg.png",
+    link: "https://www.sephora.com",
+  },
+  {
+    name: "StockX",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/StockX_logo.svg/250px-StockX_logo.svg.png",
+    link: "https://stockx.com",
+  },
+  {
+    name: "New Balance",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/New_Balance_logo.svg/250px-New_Balance_logo.svg.png",
+    link: "https://www.newbalance.com",
+  },
+  {
+    name: "Lego",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/250px-LEGO_logo.svg.png",
+    link: "https://www.lego.com",
+  },
+  {
+    name: "Forever 21",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Forever_21_logo.svg/250px-Forever_21_logo.svg.png",
+    link: "https://www.forever21.com",
+  },
+  {
+    name: "Carter’s",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Carter%27s_logo.svg/250px-Carter%27s_logo.svg.png",
+    link: "https://www.carters.com",
+  },
+  {
+    name: "GAP",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Gap_logo.svg/480px-Gap_logo.svg.png",
+    link: "https://www.gap.com",
+  },
+  {
+    name: "Disney Shop",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Disney_Store_logo.svg/250px-Disney_Store_logo.svg.png",
+    link: "https://www.shopdisney.com",
   },
 ];
 
 const biggerLogos = [
   "AliExpress",
   "Mango",
-  "Shark",
   "Baseus",
   "TEMU",
-  "Eufy",
-  "Sonos",
-  "Anker",
-  "TP-Link",
-  "Jabra",
-  "Targus",
-  "Hurley",
   "ADOR",
-  "KicksCrew",
-  "LETbricks",
-  "13 Deals",
+  "GAP",
+  "Disney Shop",
 ];
 
 export default function LogoCloud() {
   return (
-    <section className="py-16 ">
+    <section className="py-16">
       <div className="max-w-6xl mx-auto text-center px-4">
         <h2 className="text-3xl font-bold text-gray-800 mb-10">
           Compra en tus tiendas favoritas
@@ -136,7 +122,6 @@ export default function LogoCloud() {
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-6">
           {stores.map((store) => {
             const isBigLogo = biggerLogos.includes(store.name);
-            // Asignar tamaño mayor si el logo se debe mostrar grande
             const imgClass = isBigLogo
               ? "h-16 max-w-[120px] object-contain"
               : "h-10 max-w-[120px] object-contain";

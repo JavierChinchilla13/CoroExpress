@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AuthLink from "../components/shared/AuthLink";
-import ComoFunciona from "../components/shared/ComoFunciona";
+// import ComoFunciona from "../components/shared/ComoFunciona";
 import DeseaCasillero from "../components/shared/DeseaCasillero";
 import ContactCard from "../components/shared/ContactSection";
 import Stores from "../components/shared/Stores";
@@ -36,7 +36,7 @@ const AboutUs = () => {
         <section id="herramientas-servicio">{<Herramientas />}</section>
         <Stores />
         <section id="solicitar-casillero">{<DeseaCasillero />}</section>
-        <section id="como-funciona"> {<ComoFunciona />}</section>
+        {/* <section id="como-funciona"> {<ComoFunciona />}</section> */}
         <section id="contacto"> {<ContactCard />}</section>
       </main>
       {/* Footer */}
