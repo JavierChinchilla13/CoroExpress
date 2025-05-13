@@ -39,14 +39,11 @@ const Casillero = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        "https://coroexpress-okks.onrender.com/api/v1/casillero",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formState),
-        }
-      );
+      const response = await fetch("http://localhost:5173/api/v1/casillero", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
 
       const data = await response.json();
 
@@ -144,3 +141,4 @@ const Casillero = () => {
 };
 
 export default Casillero;
+//
