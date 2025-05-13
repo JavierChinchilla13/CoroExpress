@@ -40,7 +40,7 @@ const Casillero = () => {
 
     try {
       const response = await fetch(
-        "https://coroexpress.onrender.com/api/v1/casillero",
+        "https://coroexpress-okks.onrender.com/api/v1/casillero",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

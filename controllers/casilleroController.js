@@ -24,7 +24,7 @@ const createCasillero = async (req, res) => {
 
     return res.status(StatusCodes.OK).json({
       message: "Ya existía un casillero con estos datos. Se reenvió el PDF.",
-      downloadUrl: `https://coroexpress.onrender.com${downloadUrl}`,
+      downloadUrl: `https://coroexpress-okks.onrender.com${downloadUrl}`,
     });
   }
 
@@ -36,7 +36,7 @@ const createCasillero = async (req, res) => {
   res.status(StatusCodes.CREATED).json({
     message: "Casillero creado exitosamente",
     casillero,
-    downloadUrl: `https://coroexpress.onrender.com${downloadUrl}`,
+    downloadUrl: `https://coroexpress-okks.onrender.com${downloadUrl}`,
   });
 };
 
