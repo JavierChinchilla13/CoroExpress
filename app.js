@@ -36,7 +36,14 @@ app.use(cookieParser(process.env.JWT_SECRET)); // Cookies firmadas
 app.use(fileUpload({ useTempFiles: true })); // Subida de archivos
 app.use(morgan("tiny")); // Logger de solicitudes HTTP
 app.use(cors());
-app.use("/pdfs", express.static(path.join(__dirname, "public/pdfs")));
+app.use(
+  "/pdfs",
+  express.static(path.join(__dirname, "public/pdfs"), {
+    setHeaders: function (res, path) {
+      res.setHeader("Cache-Control", "no-store");
+    },
+  })
+);
 
 // Configuración de Helmet
 app.use(
