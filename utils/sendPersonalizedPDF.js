@@ -14,9 +14,9 @@ const sendPersonalizedPDF = async ({ name, email }) => {
 
   // Aquí defines manualmente las posiciones de las 3 ocurrencias de "Nombre:"
   const namePositions = [
-    { page: 0, x: 140, y: height - 213 },
-    { page: 1, x: 140, y: height - 219 },
-    { page: 1, x: 296, y: height - 462 },
+    { page: 0, x: 140, y: height - 211 },
+    { page: 1, x: 140, y: height - 217 },
+    { page: 1, x: 296, y: height - 460 },
   ];
 
   namePositions.forEach(({ page, x, y }) => {
