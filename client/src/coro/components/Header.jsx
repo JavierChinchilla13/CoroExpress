@@ -50,9 +50,9 @@ const Header = () => {
           <li className={linkStyle}>Solicitar casillero</li>
         </Link>
 
-        <Link to="/about#como-funciona" onClick={() => setMenuOpen(false)}>
+        {/* <Link to="/about#como-funciona" onClick={() => setMenuOpen(false)}>
           <li className={linkStyle}>¿Cómo funciona?</li>
-        </Link>
+        </Link> */}
 
         <Link to="/about#contacto" onClick={() => setMenuOpen(false)}>
           <li className={linkStyle}>Contacto</li>
@@ -101,11 +101,11 @@ const Header = () => {
               Solicitar casillero
             </li>
           </Link>
-          <Link to="/about#como-funciona" onClick={() => setMenuOpen(false)}>
+          {/* <Link to="/about#como-funciona" onClick={() => setMenuOpen(false)}>
             <li className="list-none w-screen text-center p-4 hover:bg-[#46B2D5] hover:text-white rounded-md transition-all cursor-pointer">
               ¿Cómo funciona?
             </li>
-          </Link>
+          </Link> */}
           <Link to="/about#contacto" onClick={() => setMenuOpen(false)}>
             <li className="list-none w-screen text-center p-4 hover:bg-[#46B2D5] hover:text-white rounded-md transition-all cursor-pointer">
               Contacto
